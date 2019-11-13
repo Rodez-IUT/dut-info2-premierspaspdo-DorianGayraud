@@ -4,9 +4,22 @@
 <head>
 	<title>User dans ordre alphabétique</title>
 	<meta charset="utf-8">
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
 </head>
 
 <body>
+
+
 
 	<!-- Connexion à la base de donnée -->
 	<?php
@@ -29,16 +42,24 @@
 	?>
     
     <!-- SCript pjp pour afficher dans l'ordre alphabétique sur le "username" -->
+    <h2>All Users</h2>
+    <table>
+    	<tr>
+    		<th>ID</th>
+    		<th>Username</th>
+    		<th>Email</th>
+    		<th>Status</th>
+    	</tr>
     <?php 
-        $stmt = $pdo->query('SELECT * FROM users ORDER BY username');
+        $stmt = $pdo->query('SELECT users.id AS user_id, username, email, name FROM users JOIN status ON users.status_id = status.id ORDER BY username');
         while ($row = $stmt->fetch()) {
         	/* on affiche toutes les lignes */
-        	foreach ($row as $key => $value) {
-        		echo $value;
-        	}
-        	echo "<br />";
+        	echo "<tr>";
+        	echo "<td>".$row['user_id']."</td> <td>".$row['username']."</td> <td>".$row['email']."</td> <td>".$row['name']."</td>";
+        	echo "</tr>";
         }
     ?>
+    </table>
 </body>
 
 </html>
