@@ -51,7 +51,7 @@
     		<th>Status</th>
     	</tr>
     <?php 
-        $stmt = $pdo->query('SELECT users.id AS user_id, username, email, name FROM users JOIN status ON users.status_id = status.id ORDER BY username');
+        $stmt = $pdo->query('SELECT users.id AS user_id, username, email, name FROM users JOIN status ON users.status_id = status.id WHERE status.id = 2 AND username LIKE \'e%\' ORDER BY username');
         while ($row = $stmt->fetch()) {
         	/* on affiche toutes les lignes */
         	echo "<tr>";
