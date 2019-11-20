@@ -64,18 +64,21 @@
     		<th>Status</th>
     	</tr>
     <?php 
-        $statusID = 1;
-        $lettreAttendue	= '';
-        if (isset($_POST["statusID"]) && $_POST["statusID"] == "Active account") {
-        	$statusID = 2;
+        $statusID = 2;
+        $lettreAttendue	= "%";
+        if (isset($_POST["statusID"]) && $_POST["statusID"] == "Waiting for account validation") {
+        	$statusID = 1;
         } 
 
         if (isset($_POST["lettre"])) {
         	$lettreAttendue	= $_POST["lettre"];
+        	$lettreAttendue = $lettreAttendue."%";
         }
 
-        $stmt = $pdo->query('SELECT users.id AS user_id, username, email, name FROM users JOIN status ON users.status_id = status.id WHERE status.id = '.$statusID.' AND username LIKE \''.$lettreAttendue.'%\' ORDER BY username');
+        $stmt = $pdo->prepare('SELECT users.id AS user_id, username, email, name FROM users JOIN status ON users.status_id = status.id WHERE status.id = :statusID AND username LIKE :lettreAttendue ORDER BY username');
+        $stmt->execute(['statusID' => $statusID, 'lettreAttendue' => $lettreAttendue]);
         while ($row = $stmt->fetch()) {
+
         	/* on affiche toutes les lignes */
         	echo "<tr>";
         	echo "<td>".$row['user_id']."</td> <td>".$row['username']."</td> <td>".$row['email']."</td> <td>".$row['name']."</td>";
