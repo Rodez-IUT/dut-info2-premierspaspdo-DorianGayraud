@@ -43,6 +43,19 @@
     
     <!-- SCript pjp pour afficher dans l'ordre alphabétique sur le "username" -->
     <h2>All Users</h2>
+
+    <!-- Formulaire de recherche -->
+    <form method="post" action="all_users.php">
+    	start with letter:<input type="text" name="lettre", id="lettre"></input>
+    	and contains:
+    	<select name="statusID", id="statusID">
+    	    <option>Active account</option>	
+    	    <option>Waiting for account validation</option>
+    	</select>
+    	<input type="submit" value="envoyer"></input>
+    </form>
+
+    <!-- Résultat sous forme de tableau -->
     <table>
     	<tr>
     		<th>ID</th>
@@ -51,8 +64,15 @@
     		<th>Status</th>
     	</tr>
     <?php 
-    	$statusID = 2;
-    	$lettreAttendue = 'e';
+        $statusID = 1;
+        $lettreAttendue	= '';
+        if (isset($_POST["statusID"]) && $_POST["statusID"] == "Active account") {
+        	$statusID = 2;
+        } 
+
+        if (isset($_POST["lettre"])) {
+        	$lettreAttendue	= $_POST["lettre"];
+        }
 
         $stmt = $pdo->query('SELECT users.id AS user_id, username, email, name FROM users JOIN status ON users.status_id = status.id WHERE status.id = '.$statusID.' AND username LIKE \''.$lettreAttendue.'%\' ORDER BY username');
         while ($row = $stmt->fetch()) {
