@@ -45,7 +45,7 @@
     <h2>All Users</h2>
 
     <!-- Formulaire de recherche -->
-    <form method="post" action="all_users.php">
+    <form method="get" action="all_users.php">
     	start with letter:<input type="text" name="lettre", id="lettre"></input>
     	and contains:
     	<select name="statusID", id="statusID">
@@ -67,9 +67,9 @@
     <?php 
         $statusID = 2;
         $lettreAttendue	= "%";
-        if (isset($_POST["statusID"]) && $_POST["statusID"] == "Waiting for account validation") {
+        if (isset($_GET["statusID"]) && $_GET["statusID"] == "Waiting for account validation") {
         	$statusID = 1;
-        } else if (isset($_POST["statusID"]) && $_POST["statusID"] == "Waiting for account deletation") {
+        } else if (isset($_GET["statusID"]) && $_GET["statusID"] == "Waiting for account deletation") {
             $statusID = 3;
         }
 
@@ -85,6 +85,9 @@
         	/* on affiche toutes les lignes */
         	echo "<tr>";
         	echo "<td>".$row['user_id']."</td> <td>".$row['username']."</td> <td>".$row['email']."</td> <td>".$row['name']."</td>";
+            if ($statusID != 3) {
+                echo "<td><a href=\"all_users.php\">Ask deletation</a></td>";
+            }
         	echo "</tr>";
         }
     ?>
