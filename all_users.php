@@ -49,8 +49,9 @@
     	start with letter:<input type="text" name="lettre", id="lettre"></input>
     	and contains:
     	<select name="statusID", id="statusID">
-    	    <option>Active account</option>	
-    	    <option>Waiting for account validation</option>
+    	    <option htmlspecialchars>Active account</option>	
+    	    <option htmlspecialchars>Waiting for account validation</option>
+            <option htmlspecialchars>Waiting for account deletation</option>
     	</select>
     	<input type="submit" value="envoyer"></input>
     </form>
@@ -68,7 +69,9 @@
         $lettreAttendue	= "%";
         if (isset($_POST["statusID"]) && $_POST["statusID"] == "Waiting for account validation") {
         	$statusID = 1;
-        } 
+        } else if (isset($_POST["statusID"]) && $_POST["statusID"] == "Waiting for account deletation") {
+            $statusID = 3;
+        }
 
         if (isset($_POST["lettre"])) {
         	$lettreAttendue	= $_POST["lettre"];
