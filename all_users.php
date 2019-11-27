@@ -50,11 +50,11 @@
     	and contains:
     	<select name="status_id", id="status_id">
     	    <option htmlspecialchars value="2" 
-            <?php if ($_GET['status_id'] == 2) echo ' selected' ?>>Active account</option>	
+            <?php if ($_GET['status_id'] == 2) echo ' selected ' ?>>Active account</option>	
     	    <option htmlspecialchars value="1" 
-            <?php if ($_GET['status_id'] == 1) echo ' selected' ?>>Waiting for account validation</option>
+            <?php if ($_GET['status_id'] == 1) echo ' selected ' ?>>Waiting for account validation</option>
             <option htmlspecialchars value="3" 
-            <?php if ($_GET['status_id'] == 3) echo ' selected' ?>>Waiting for account deletion</option>
+            <?php if ($_GET['status_id'] == 3) echo ' selected ' ?>>Waiting for account deletion</option>
     	<input type="submit" value="envoyer"></input>
     </form>
 
